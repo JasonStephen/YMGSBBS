@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head-fragment(title)">
+    <meta charset="utf-8">
+    <title th:text="${title}">论坛首页</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="Cache" content="no-cache">
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+
+</head>
+
+<div th:fragment="header-fragment" class="fly-header" style="background-color: #252525">
+    <div class="layui-container">
+        <a href="/" data-image-width="144" data-image-height="48" title="YuanMeng Game Club">
+            <img th:src="@{/images/YMGS-LOGO.png}" alt="欢迎来到圆梦俱乐部" class="fly-logo fly-logo-fix">
+        </a>
+
+        <ul class="layui-nav fly-nav-user">
+            <!-- 未登入的状态 -->
+            <th:block th:if="${session.myBBSUser==null}">
+                <li class="layui-nav-item guide-nav-item">
+                    <a th:href="@{/login}" style=" color: white">登入</a>
+                </li>
+                <li class="layui-nav-item guide-nav-item">
+                    <a th:href="@{/register}" style=" color: white">注册</a>
+                </li>
+            </th:block>
+
+
+            <!-- 登入后的状态 -->
+            <th:block th:unless="${session.myBBSUser==null}">
+                <li class="layui-nav-item">
+                    <a class="fly-nav-avatar" href="javascript:;">
+                        <cite class="layui-hide-xs" th:text="${session.myBBSUser.nickName}"></cite>
+                        <th:block th:if="${session.myBBSUser.gender=='男'}">
+                            <i class="iconfont icon-nan"></i>
+                        </th:block>
+                        <th:block th:if="${session.myBBSUser.gender=='女'}">
+                            <i class="iconfont icon-nv"></i>
+                        </th:block>
+                        <th:block th:if="${session.myBBSUser.gender=='未知'}">
+                            <i class="iconfont icon-biaoqing"></i>
+                        </th:block>
+                        <img th:src="@{${session.myBBSUser.headImgUrl}}">
+                        <span class="layui-nav-more"></span>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a th:href="@{/userSet}"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
+                        <dd><a th:href="@{/myCenter}"><i class="layui-icon" style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a>
+                        </dd>
+                        <hr style="margin: 5px 0;">
+                        <dd><a th:href="@{/logout}" style="text-align: center;">退出</a></dd>
+                    </dl>
+                </li>
+            </th:block>
+        </ul>
+        <th:block th:if="${session.myBBSUser==null}">
+            <ul class="layui-nav fly-nav-user" style="margin-right: 96px">
+                <li class="layui-nav-item guide-nav-item"><a href="main-about.html">关于我们</a></li>
+                <li class="layui-nav-item guide-nav-item"><a href="main-news.html">新闻栏目</a></li>
+                <li class="layui-nav-item guide-nav-item"><a href="main-activity.html">社区活动</a></li>
+                <li class="layui-nav-item guide-nav-item"><a href="/">社区论坛</a></li>
+                <li class="layui-nav-item guide-nav-item"><a href="main-join.html">加入我们</a></li>
+            </ul>
+        </th:block>
+        <th:block th:unless="${session.myBBSUser==null}">
+            <ul class="layui-nav fly-nav-user custom-margin">
+                <li class="layui-nav-item guide-nav-item"><a href="main-about.html">关于我们</a></li>
+                <li class="layui-nav-item guide-nav-item"><a href="main-news.html">新闻栏目</a></li>
+                <li class="layui-nav-item guide-nav-item"><a href="main-activity.html">社区活动</a></li>
+                <li class="layui-nav-item guide-nav-item"><a href="/">社区论坛</a></li>
+                <li class="layui-nav-item guide-nav-item"><a href="main-join.html">加入我们</a></li>
+            </ul>
+        </th:block>
+    </div>
+</div>
